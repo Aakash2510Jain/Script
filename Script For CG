@@ -1,0 +1,14 @@
+
+Map<String,String> AccountNameById = new Map<String, String>();
+for(Account acc : [Select Id,Name From Account]){
+    AccountNameById.put(acc.Name, acc.Id);
+}
+system.debug('AccountNameById::'+AccountNameById);
+List<Contact> conList = [SELECT AccountId,College_Name__c FROM Contact Where College_Name__c != null && AccountId == null];
+for(contact con : conList){
+    if(AccountNameById.containskey(con.College_Name__c)){
+        con.AccountId = AccountNameById.get(con.College_Name__c);
+    } 
+}
+system.debug('conList::'+conList);
+update conList;
