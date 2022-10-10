@@ -1,0 +1,33 @@
+Update Call count of specific Lead
+************************************************************************************
+
+
+List<Task> taskList = new List<Task>();
+taskList = [SELECT Id,CallDurationInSeconds,wk_exo__Total_Talk_Time__c,Updated_by_Scheduler__c FROM Task WHERE wk_exo__call_sid__c != null AND WhoId = '00Q0w000005jzh9EAA'];
+
+system.debug('taskList-->'+taskList);
+
+if(!taskList.isEmpty()){
+    Lead leadToUpdate = new Lead();
+    leadToUpdate.Id = '00Q0w000005jzh9EAA';
+    integer callTime = 0;
+    integer talkTime = 0;
+    integer totalCall = 0;
+    integer connectedCallCount = 0;
+    
+    for(Task taskRec : taskList){
+        callTime += integer.valueOf(taskrec.CallDurationInSeconds) > 0 ? integer.valueOf(taskrec.CallDurationInSeconds) : 0;
+        talkTime += integer.valueOf(taskrec.wk_exo__Total_Talk_Time__c) > 0 ? integer.valueOf(taskrec.wk_exo__Total_Talk_Time__c) : 0;
+        totalCall += 1;
+        if (integer.valueOf(taskrec.wk_exo__Total_Talk_Time__c) > 0){
+            connectedCallCount += 1;
+        }
+    }
+    leadToUpdate.Talk_Time__c = callTime;
+    leadToUpdate.Connected_Call_Time_in_Seconds__c = talkTime;
+    leadToUpdate.Total_Call_Count__c = totalCall ;
+    leadToUpdate.Call_Count__c = connectedCallCount ;
+    system.debug('leadToUpdate-->'+leadToUpdate);
+    update leadToUpdate;
+}
+
