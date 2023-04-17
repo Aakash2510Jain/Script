@@ -1,0 +1,43 @@
+[9/30/2022 3:33 PM] Prithvi Shiroor
+
+
+
+
+SELECT ProfileId FROM User WHERE Alias = 'autoproc'
+
+
+
+
+
+
+
+[9/30/2022 3:38 PM] Prithvi Shiroor
+
+
+
+/_ui/system/user/ProfileApexPagePermissionEdit/e?profile_id={autoproc_profile_id}
+
+
+
+
+
+
+
+[9/30/2022 3:39 PM] Prithvi Shiroor
+
+
+
+/_ui/system/user/ProfileApexClassPermissionEdit/e?profile_id=
+
+
+
+
+
+
+[9/30/2022 3:43 PM] Prithvi Shiroor
+
+
+
+/setup/layout/flsedit.jsp?id={autoproc_profile_id}&type={sObjectName}
+
+
