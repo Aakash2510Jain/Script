@@ -1,0 +1,19 @@
+To Identify Duplicates based on CIN no on Account
+
+list<Account> updatedacclist = new List<Account>();
+set<String> CIN_sets = new set<String>();
+List<AggregateResult> aaclist = [SELECT CIN_Registration_Number__c FROM Account WHERE CIN_Registration_Number__c !=NULL GROUP BY CIN_Registration_Number__c HAVING COUNT(Id) > 1];
+system.debug('aaclist ===> ' + aaclist);
+
+for(AggregateResult agr : aacList){
+    CIN_sets.add(string.valueOf(agr.get('CIN_Registration_Number__c')));
+}
+system.debug('CIN_sets ===> ' + CIN_sets);
+List<Account> accountsToUpdate = [SELECT Id, Name, Is_Duplicate__c FROM Account WHERE CIN_Registration_Number__c IN:CIN_sets and Is_Duplicate__c = False];
+for(Account acc :accountsToUpdate){
+    Account accRecToUpdate = new Account();
+    accRecToUpdate.Is_Duplicate__c = true;
+    accRecToUpdate.Id = acc.Id;
+    updatedacclist.add(acc);
+}
+system.debug('updatedacclist--->'+updatedacclist.size());
